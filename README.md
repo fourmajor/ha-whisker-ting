@@ -37,6 +37,8 @@ and adds protocol tests and production-safe update throttling.
 
 ### HACS (Recommended)
 
+[![Open your Home Assistant instance and open this repository in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=fourmajor&repository=ha-whisker-ting&category=integration)
+
 1. Open HACS in Home Assistant
 2. Click the three dots in the top right corner
 3. Select "Custom repositories"
