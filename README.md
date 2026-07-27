@@ -1,9 +1,20 @@
 # Whisker Ting Integration for Home Assistant
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-[![GitHub Release](https://img.shields.io/github/release/aidenmitchell/ha-whisker-ting.svg)](https://github.com/aidenmitchell/ha-whisker-ting/releases)
+[![GitHub Release](https://img.shields.io/github/release/fourmajor/ha-whisker-ting.svg)](https://github.com/fourmajor/ha-whisker-ting/releases)
 
 Home Assistant integration for [Whisker Labs Ting](https://www.tingfire.com/) electrical fire safety sensors.
+
+This maintained fork is based on
+[`aidenmitchell/ha-whisker-ting`](https://github.com/aidenmitchell/ha-whisker-ting).
+It repairs the SignalR MessagePack implementation used for live voltage data
+and adds protocol tests and production-safe update throttling.
+
+> [!IMPORTANT]
+> This is an unofficial, reverse-engineered integration. Keep the official Ting
+> app and Whisker Labs Fire Safety Team notifications enabled and treat them as
+> the authoritative safety system. Do not rely on Home Assistant as the sole
+> source of electrical hazard alerts.
 
 ## Features
 
@@ -11,6 +22,8 @@ Home Assistant integration for [Whisker Labs Ting](https://www.tingfire.com/) el
   - Current voltage
   - Voltage high/low
   - Average peaks
+  - Latest readings are published to Home Assistant every five seconds to avoid
+    excessive recorder growth
 - **Fire hazard status** monitoring
   - Electrical Fire Hazard (EFH) detection
   - Utility Fire Hazard (UFH) detection
@@ -27,13 +40,13 @@ Home Assistant integration for [Whisker Labs Ting](https://www.tingfire.com/) el
 1. Open HACS in Home Assistant
 2. Click the three dots in the top right corner
 3. Select "Custom repositories"
-4. Add `https://github.com/aidenmitchell/ha-whisker-ting` as an Integration
+4. Add `https://github.com/fourmajor/ha-whisker-ting` as an Integration
 5. Click "Download" on the Whisker Ting integration
 6. Restart Home Assistant
 
 ### Manual Installation
 
-1. Download the latest release from [GitHub](https://github.com/aidenmitchell/ha-whisker-ting/releases)
+1. Download the latest release from [GitHub](https://github.com/fourmajor/ha-whisker-ting/releases)
 2. Extract and copy the `custom_components/whisker_ting` folder to your Home Assistant `config/custom_components/` directory
 3. Restart Home Assistant
 
@@ -74,11 +87,18 @@ Home Assistant integration for [Whisker Labs Ting](https://www.tingfire.com/) el
 
 This is normal - the integration waits for the WebSocket connection to receive its first data packet before displaying values.
 
+If voltage stays unknown for more than 30 seconds, review the Home Assistant
+logs for `custom_components.whisker_ting.websocket` and open an issue with the
+error text. Never include your password, API key, or authentication tokens.
+
 ### Authentication errors
 
 Ensure you're using the same email and password you use in the Whisker Labs mobile app.
 
 ## Credits
+
+Created by [Aiden Mitchell](https://github.com/aidenmitchell) and maintained in
+this fork by [fourmajor](https://github.com/fourmajor).
 
 This integration is not affiliated with or endorsed by Whisker Labs, Inc.
 
